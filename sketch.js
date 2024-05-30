@@ -86,18 +86,18 @@ class GlowingParticle {
     this.x = random(width);
     this.y = random(height);
     this.size = random(5, 10);
-    this.speedX = random(-1, 1);
-    this.speedY = random(-1, 1);
     this.alpha = random(100, 255);
     this.col = color(random(100, 255), random(100, 255), random(100, 255));
+    this.noiseOffsetX = random(1000);
+    this.noiseOffsetY = random(1000);
+    this.noiseScale = random(0.001, 0.005); // Randomize the noise scale to spread particles
   }
 
   move() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-
-    if (this.x < 0 || this.x > width) this.speedX *= -1;
-    if (this.y < 0 || this.y > height) this.speedY *= -1;
+    this.noiseOffsetX += this.noiseScale;
+    this.noiseOffsetY += this.noiseScale;
+    this.x = noise(this.noiseOffsetX) * width;
+    this.y = noise(this.noiseOffsetY) * height;
   }
 
   display() {
