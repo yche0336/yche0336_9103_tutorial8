@@ -19,6 +19,15 @@ class MovingBubble {
     this.text = text; // Add an attribute to store text
     this.speedX = random(-0.5, 0.5); // horizontal speed
     this.speedY = random(-0.5, 0.5); // vertical speed
+    this.curve = this.createCurve(); // Create curve around bubble
+  }
+
+  createCurve() {
+    return {
+      size: this.size * 1.2, // Curve size slightly larger than bubble
+      col: color(random(100, 255), random(100, 255), random(100, 255), 150),
+      noiseOffset: random(1000)
+    };
   }
 
   move() {
@@ -79,6 +88,20 @@ class MovingBubble {
     }
     pop();
   }
+
+  displayCurve() {
+    stroke(this.curve.col);
+    noFill();
+    beginShape();
+    let angleStep = TWO_PI / 100;
+    for (let angle = 0; angle < TWO_PI; angle += angleStep) {
+      let r = this.curve.size / 2 + 10 * noise(cos(angle) + 1, sin(angle) + 1, frameCount * 0.02 + this.curve.noiseOffset);
+      let x = this.x + r * cos(angle);
+      let y = this.y + r * sin(angle);
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+  }
 }
 
 let noiseMax = 1;
@@ -135,7 +158,7 @@ function draw() {
 
   // Simulate background waves using Perlin noise
   noStroke();
-  fill(231, 254, 255, 100);
+  fill(231, 254, 255, 150);
   let foamXoff = foamOffset;
   for (let x = 0; x < width; x += 10) {
     let foamYoff = 0;
@@ -147,7 +170,18 @@ function draw() {
     foamXoff += 0.1;
   }
 
-  // Display circular curves
+  // Display circular curves around bubbles
+  for (let bubble of movingBubbles) {
+    bubble.displayCurve();
+  }
+
+  // Display bubbles
+  for (let bubble of movingBubbles) {
+    bubble.move();
+    bubble.display();
+  }
+
+  // Display additional circular curves
   for (let curve of circularCurves) {
     stroke(curve.col);
     noFill();
@@ -160,12 +194,6 @@ function draw() {
       vertex(x, y);
     }
     endShape(CLOSE);
-  }
-
-  // Display bubbles
-  for (let bubble of movingBubbles) {
-    bubble.move();
-    bubble.display();
   }
 }
 
