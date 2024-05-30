@@ -81,32 +81,6 @@ class MovingBubble {
   }
 }
 
-class GlowingParticle {
-  constructor() {
-    this.x = random(width);
-    this.y = random(height);
-    this.size = random(5, 10);
-    this.alpha = random(100, 255);
-    this.col = color(random(100, 255), random(100, 255), random(100, 255));
-    this.noiseOffsetX = random(1000);
-    this.noiseOffsetY = random(1000);
-    this.noiseScale = random(0.001, 0.005); // Randomize the noise scale to spread particles
-  }
-
-  move() {
-    this.noiseOffsetX += this.noiseScale;
-    this.noiseOffsetY += this.noiseScale;
-    this.x = noise(this.noiseOffsetX) * width;
-    this.y = noise(this.noiseOffsetY) * height;
-  }
-
-  display() {
-    noStroke();
-    fill(this.col.levels[0], this.col.levels[1], this.col.levels[2], this.alpha);
-    ellipse(this.x, this.y, this.size);
-  }
-}
-
 let noiseMax = 1;
 let phase = 0;
 let scaleValue = 1;
@@ -114,12 +88,12 @@ let scaleDirection = 1;
 
 let foamOffset = 0;
 let movingBubbles = [];
-let glowingParticles = [];
+let circularCurves = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER, CENTER);
-  // Create bubbles，different bubbles have different text and color
+  // Create bubbles，different bubbles有不同的text和color
   movingBubbles.push(new MovingBubble("sad", color(0, 0, 139, 150), color(221, 160, 221, 150)));
   movingBubbles.push(new MovingBubble("love", color(173, 216, 230, 150), color(255, 182, 193, 150)));
   movingBubbles.push(new MovingBubble("joy", color(255, 127, 80, 150), color(255, 223, 0, 150)));
@@ -130,9 +104,16 @@ function setup() {
   movingBubbles.push(new MovingBubble("powerful", color(255, 223, 0, 150), color(255, 37, 0, 150)));
   movingBubbles.push(new MovingBubble("angry", color(16, 12, 8, 150), color(194, 0, 0, 150)));
 
-  // Create glowing particles to make the picture more attractive
-  for (let i = 0; i < 100; i++) {
-    glowingParticles.push(new GlowingParticle());
+  // Create circular curves with randomness
+  for (let i = 0; i < 20; i++) { // Increased number of curves for more variety
+    let curve = {
+      x: random(width),
+      y: random(height),
+      size: random(50, 200),
+      col: color(random(100, 255), random(100, 255), random(100, 255), 150),
+      noiseOffset: random(1000)
+    };
+    circularCurves.push(curve);
   }
 
   // Create button to play music
@@ -166,16 +147,25 @@ function draw() {
     foamXoff += 0.1;
   }
 
+  // Display circular curves
+  for (let curve of circularCurves) {
+    stroke(curve.col);
+    noFill();
+    beginShape();
+    let angleStep = TWO_PI / 100;
+    for (let angle = 0; angle < TWO_PI; angle += angleStep) {
+      let r = curve.size / 2 + 10 * noise(cos(angle) + 1, sin(angle) + 1, frameCount * 0.02 + curve.noiseOffset);
+      let x = curve.x + r * cos(angle);
+      let y = curve.y + r * sin(angle);
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+  }
+
   // Display bubbles
   for (let bubble of movingBubbles) {
     bubble.move();
     bubble.display();
-  }
-
-  // Display glowing particles
-  for (let particle of glowingParticles) {
-    particle.move();
-    particle.display();
   }
 }
 
