@@ -26,7 +26,7 @@ NoiseOffset: Each bubble has an independent noiseOffset, making each bubble's mo
 Curve animation: 1.createCurve（） creates a curve for each bubble, the size （） realizes the effect that the curve is bigger than the bubble.
 2. Each bubble is surrounded by a curve generated based on Perlin noise, these curves use random colors and line thickness to make them look more natural and unique.
 
-### Particles.
+#### Particles.
 
 Randomness: The initial position, size, color, speed and other attributes of the bubbles and particles are generated using the random() function, ensuring that each element is unique.
 
@@ -34,10 +34,15 @@ Explode Generation: Using alpha() Gets the alpha (transparency) value of a color
 
 Transparency fade: decreases the transparency of the particle each time its position is updated, simulating the effect of the particle fading away. For exploding particles, the transparency decreases faster, adding to the visual dynamism.
 
-### Dynamic background.
+#### Dynamic background.
 
 Five layers of waveforms are drawn using Perlin noise , each using a different offset to make them appear to be moving at different depths.
 
 Use of map(noise()): Creates a more natural wave effect by using the noise function to generate smooth noise values and then using the map function to convert those values to vertical positions.
 
 The use of (timeOffset) is used to vary it on a per-frame basis, making the Perlin noise change over time, creating a dynamic effect.
+
+### Inspiration
+
+I was inspired by the work of SamuelYan the generative art artist, it was difficult to find the link to the website as it was a picture he shared on social media. The combination of circular curves, bubbles and fireworks made a deep impact on me, reminding me of fond memories and passing moments.
+![An image of Samuelyan](![alt text](assets/WechatIMG941.jpg))
