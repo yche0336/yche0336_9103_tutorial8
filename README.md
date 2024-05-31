@@ -1,6 +1,7 @@
 # yche0336_9103_tutorial8
 # Emotional Therapy Animation
 ## Wheel of Fortune Re-creation
+### Individual Assignment Instructions
 
 Based on my group's re-creation of an emotional therapy animation inspired by the Wheel of Fortune, I used the techniques of Perlin noise and randomness to make the animation move more naturally and smoothly, as if real emotions were flowing.
 
@@ -10,3 +11,33 @@ The circular curves are similar to the interweaving lines in the Wheel of Fortun
 1. Open the web page
 2. Click the “play/stop” button to play the music.
 3. Watch the bubbles move and particles explode on the screen, and feel the healing power of the animation.
+
+### Animation properties and uniqueness, and a brief technical note
+I chose to use Perlin noise and randomness to drive the animation effects. I've divided the code into three main sections to illustrate which properties ，as well as a brief technical description
+
+#### Bubbles.
+
+Breathing feeling: this.scaleValue varies between 1 and 1.2 in a loop, creating a smooth breathing effect that makes the object look like it's breathing as it gradually gets bigger and smaller. Inspired by size() in p5.js.
+
+Position change: Use the random() function to generate the initial position of the bubbles and make them move slowly across the screen with random speeds (speedX and speedY).
+
+NoiseOffset: Each bubble has an independent noiseOffset, making each bubble's movement and shape change unique.
+
+Curve animation: 1.createCurve（） creates a curve for each bubble, the size （） realizes the effect that the curve is bigger than the bubble.
+2. Each bubble is surrounded by a curve generated based on Perlin noise, these curves use random colors and line thickness to make them look more natural and unique.
+
+### Particles.
+
+Randomness: The initial position, size, color, speed and other attributes of the bubbles and particles are generated using the random() function, ensuring that each element is unique.
+
+Explode Generation: Using alpha() Gets the alpha (transparency) value of a color. from p5.js reference When the transparency of a particle falls below 200, the explode method is invoked, generating more small particles. These small particles have a random initial velocity and small size, and their transparency decreases faster, resulting in an explosion effect.
+
+Transparency fade: decreases the transparency of the particle each time its position is updated, simulating the effect of the particle fading away. For exploding particles, the transparency decreases faster, adding to the visual dynamism.
+
+### Dynamic background.
+
+Five layers of waveforms are drawn using Perlin noise , each using a different offset to make them appear to be moving at different depths.
+
+Use of map(noise()): Creates a more natural wave effect by using the noise function to generate smooth noise values and then using the map function to convert those values to vertical positions.
+
+The use of (timeOffset) is used to vary it on a per-frame basis, making the Perlin noise change over time, creating a dynamic effect.
