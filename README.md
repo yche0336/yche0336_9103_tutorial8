@@ -46,3 +46,8 @@ The use of (timeOffset) is used to vary it on a per-frame basis, making the Perl
 
 I was inspired by the work of SamuelYan the generative art artist, it was difficult to find the link to the website as it was a picture he shared on social media. The combination of circular curves, bubbles and fireworks made a deep impact on me, reminding me of fond memories and passing moments.
 ![An image of Samuelyan](![alt text](assets/WechatIMG941.jpg))
+
+In my personal code, the wave background is inspired by the ocean scene done with perlin in weekk10quiz. I used Perlin's noise smoothing feature to create a continuous wave effect, which makes the background look more beautiful and dynamic.
+
+The particle explosion was inspired by the youtube tutorial “How to make a firework using particle system” by patt vira from https://www.youtube.com/watch?v=YPKidHmretc&t=1531s. The purpose is to make a firework effect, to express the effect of the fireworks. The purpose is to make a firework effect, to express every moment in our individual life.
+![An image of tutorial](![alt text](<assets/Screenshot 2024-05-31 at 13.51.02.png>))
